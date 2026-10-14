@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio CV Gabungan - GitHub Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.1);
+      
+      /* Theme 1: Reddhy (Emerald Professional) */
+      --reddhy-primary: #10b981;
+      --reddhy-gradient: linear-gradient(135deg, #059669, #10b981);
+      
+      /* Theme 2: Nashera (Rose Aesthetic) */
+      --nashera-primary: #f43f5e;
+      --nashera-gradient: linear-gradient(135deg, #e11d48, #f43f5e);
+      
+      /* Theme 3: Ilham (Royal Blue Academic) */
+      --ilham-primary: #2563eb;
+      --ilham-gradient: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      
+      /* Theme 4: Aulia (Violet Lavender Modern) */
+      --aulia-primary: #8b5cf6;
+      --aulia-gradient: linear-gradient(135deg, #6d28d9, #8b5cf6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    header {
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Tab Switcher */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.6rem 1.2rem;
+      border-radius: 99px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .tab-btn.active[data-target="reddhy"] {
+      background: var(--reddhy-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .tab-btn.active[data-target="nashera"] {
+      background: var(--nashera-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(244, 63, 94, 0.4);
+    }
+
+    .tab-btn.active[data-target="ilham"] {
+      background: var(--ilham-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .tab-btn.active[data-target="aulia"] {
+      background: var(--aulia-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      width: 100%;
+      flex-grow: 1;
+    }
+
+    /* CV Card Base */
+    .cv-panel {
+      display: none;
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(16px);
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cv-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Profile Header Layout */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .profile-img-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .profile-img-wrap img, .profile-img-wrap svg {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .profile-info h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-info .subtitle {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Grid Sections */
+    .cv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .cv-grid.two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.5rem - 5px);
+      top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-sub {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .timeline-desc ul {
+      padding-left: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    .timeline-desc li {
+      margin-bottom: 0.3rem;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Individual Color Themes */
+    /* Reddhy - Emerald */
+    #reddhy .subtitle { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    #reddhy .section-title { color: #34d399; }
+    #reddhy .timeline-item::before { background: var(--reddhy-primary); box-shadow: 0 0 10px var(--reddhy-primary); }
+    #reddhy .timeline-date { color: #34d399; }
+
+    /* Nashera - Rose */
+    #nashera .subtitle { background: rgba(244, 63, 94, 0.15); color: #fb7185; }
+    #nashera .section-title { color: #fb7185; }
+    #nashera .timeline-item::before { background: var(--nashera-primary); box-shadow: 0 0 10px var(--nashera-primary); }
+    #nashera .timeline-date { color: #fb7185; }
+
+    /* Ilham - Blue */
+    #ilham .subtitle { background: rgba(37, 99, 235, 0.15); color: #60a5fa; }
+    #ilham .section-title { color: #60a5fa; }
+    #ilham .timeline-item::before { background: var(--ilham-primary); box-shadow: 0 0 10px var(--ilham-primary); }
+    #ilham .timeline-date { color: #60a5fa; }
+
+    /* Aulia - Violet */
+    #aulia .subtitle { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+    #aulia .section-title { color: #a78bfa; }
+    #aulia .timeline-item::before { background: var(--aulia-primary); box-shadow: 0 0 10px var(--aulia-primary); }
+    #aulia .timeline-date { color: #a78bfa; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 640px) {
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .contact-list {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Curriculum Vitae Showcase</h1>
+    <p>Pilih tab di bawah untuk melihat profil lengkap tiap kandidat</p>
+    
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-target="reddhy">
+        <i class="fa-solid fa-user-tie"></i> Reddhy Joferdho
+      </button>
+      <button class="tab-btn" data-target="nashera">
+        <i class="fa-solid fa-user-graduate"></i> Nashera Rahman
+      </button>
+      <button class="tab-btn" data-target="ilham">
+        <i class="fa-solid fa-user-pen"></i> Ilham Nawawi
+      </button>
+      <button class="tab-btn" data-target="aulia">
+        <i class="fa-solid fa-user-gear"></i> Aulia Nur Oktapiyani
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 1. REDDHY JOFERDHO -->
+    <div class="cv-panel active" id="reddhy">
+      <div class="profile-header">
+        <div class="profile-img-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="20" fill="#dc2626"/>
+            <path d="M60 30C46.1929 30 35 41.1929 35 55C35 68.8071 46.1929 80 60 80C73.8071 80 85 68.8071 85 55C85 41.1929 73.8071 30 60 30Z" fill="#fca5a5"/>
+            <path d="M20 110C20 90.1178 37.9086 74 60 74C82.0914 74 100 90.1178 100 110H20Z" fill="#1e293b"/>
+          </svg>
+        </div>
+        <div class="profile-info">
+          <h2>Reddhy Joferdho</h2>
+          <span class="subtitle">Administrasi & Pelayanan Pelanggan</span>
+          <div class="contact-list">
+            <span class="contact-item"><i class="fa-solid fa-phone"></i> +628972885353</span>
+            <span class="contact-item"><i class="fa-solid fa-envelope"></i> joferdhoreddhy@gmail.com</span>
+            <span class="contact-item"><i class="fa-solid fa-graduation-cap"></i> Otomasi & Tata Kelola Perkantoran</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-grid">
+        <div>
+          <h3 class="section-title"><i class="fa-solid fa-user"></i> Profil</h3>
+          <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 2rem;">
+            Lulusan SMK jurusan Otomasi dan Tata Kelola Perkantoran yang memiliki pengalaman kerja di bidang administrasi dan pelayanan pelanggan. Memiliki kemampuan dalam mengelola korespondensi, basis data, menyusun laporan keuangan sederhana menggunakan MS Excel, menyusun laporan kerja di MS Word, dan administrasi email dengan MS Outlook. Memiliki kemampuan interpersonal yang baik seperti komunikasi dan kerja sama.
+          </p>
+        </div>
+
+        <div class="cv-grid two-col">
+          <div>
+            <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> Pengalaman Kerja</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">1 Sep 2022 - 31 Okt 2022</div>
+                <div class="timeline-title">Layanan Umum (PKL)</div>
+                <div class="timeline-sub">Resimen Arhanud - 1/F</div>
+                <div class="timeline-desc">
+                  <ul>
+                    <li>Melakukan tugas pelayanan anggota dengan menerima pembuatan surat cuti.</li>
+                    <li>Mengelola korespondensi kantor menggunakan buku agenda di MS Excel untuk pencatatan surat masuk dan keluar.</li>
+                    <li>Mencatat gaji anggota (gaji pokok, tunjangan, dll) serta rekapitulasi data anggota.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-title">Waiter</div>
+                <div class="timeline-sub">Hotel Trembesi BSD</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-title">Banquet & Steward</div>
+                <div class="timeline-sub">Table Top Mall Casablanca</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="section-title"><i class="fa-solid fa-sitemap"></i> Pengalaman Organisasi</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">Juli 2023 - Mei 2024</div>
+                <div class="timeline-title">Bendahara Umum OSIS</div>
+                <div class="timeline-sub">SMK Kartika X-2 Jakarta</div>
+                <div class="timeline-desc">
+                  <ul>
+                    <li>Menyusun rancangan anggaran senilai IDR 100 Juta+ untuk 12 bulan masa kerja dan 10+ program kerja.</li>
+                    <li>Menyusun laporan keuangan bulanan dan laporan pertanggungjawaban (LPJ).</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Juli 2022 - Mei 2023</div>
+                <div class="timeline-title">Sekretaris Umum MPK OSIS</div>
+                <div class="timeline-sub">SMK Kartika X-2 Jakarta</div>
+                <div class="timeline-desc">
+                  <ul>
+                    <li>Manajemen jadwal, pengelolaan dokumen, database, dan penyusunan proposal kegiatan.</li>
+                    <li>Menyelenggarakan 20+ rapat kerja organisasi dan notulensi.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-gears"></i> Kemampuan</h3>
+            <div class="badge-group">
+              <span class="badge">MS Word</span>
+              <span class="badge">MS Excel</span>
+              <span class="badge">MS Outlook</span>
+              <span class="badge">Akuntansi Dasar</span>
+              <span class="badge">Pembukuan</span>
+              <span class="badge">Laporan Keuangan</span>
+              <span class="badge">Komunikasi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. NASHERA RAHMAN -->
+    <div class="cv-panel" id="nashera">
+      <div class="profile-header">
+        <div class="profile-img-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="20" fill="#dc2626"/>
+            <circle cx="60" cy="50" r="22" fill="#fca5a5"/>
+            <path d="M35 32C35 32 42 22 60 22C78 22 85 32 85 32C85 32 88 55 85 68C82 81 60 88 60 88C60 88 38 81 35 68C32 55 35 32 35 32Z" fill="#0f172a"/>
+            <path d="M25 110C25 92 40 82 60 82C80 82 95 92 95 110H25Z" fill="#334155"/>
+          </svg>
+        </div>
+        <div class="profile-info">
+          <h2>Nashera Rahman</h2>
+          <span class="subtitle">S1 Manajemen Pendidikan - UIN Syarif Hidayatullah</span>
+          <div class="contact-list">
+            <span class="contact-item"><i class="fa-solid fa-calendar"></i> Jakarta, 7 Maret 2005</span>
+            <span class="contact-item"><i class="fa-solid fa-phone"></i> +6289675757411</span>
+            <span class="contact-item"><i class="fa-solid fa-envelope"></i> eiyaasera@gmail.com</span>
+            <span class="contact-item"><i class="fa-solid fa-location-dot"></i> Jagakarsa, Jakarta Selatan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-grid two-col">
+        <div>
+          <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> Pengalaman Kerja</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">2025 - Sekarang</div>
+              <div class="timeline-title">Pengelola Usaha F&B "Fried Chicken"</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2025</div>
+              <div class="timeline-title">Guru Les Privat Calistung</div>
+              <div class="timeline-sub">Jagakarsa</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2024 - 2025</div>
+              <div class="timeline-title">Guru Pengabdian MTs & MA</div>
+              <div class="timeline-sub">Pondok Pesantren Daar el Hikam, Tangerang Selatan</div>
+            </div>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">2025 - Sekarang</div>
+              <div class="timeline-title">S1 Manajemen Pendidikan</div>
+              <div class="timeline-sub">UIN Syarif Hidayatullah Jakarta</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2021 - 2024</div>
+              <div class="timeline-title">MA Daarul Rahman Jakarta</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="section-title"><i class="fa-solid fa-star"></i> Pengalaman Organisasi & Prestasi</h3>
+          <div class="timeline">
+            <div class="timeline-item">
